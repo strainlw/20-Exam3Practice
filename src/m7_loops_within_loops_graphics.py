@@ -220,13 +220,23 @@ def many_hourglasses(window, square, m, colors):
     square.attach_to(window)
     radius = square.length_of_each_side/2
     for j in range(m):
-        hourglass(window, j+1, square.center, radius, colors[j])
-        corner1 = rg.Point(square.center.x - math.cos(math.pi/3)*j*radius - radius, square.center.y -
-                           math.sin(math.pi/3) * j * radius - radius)
-        corner2 = rg.Point(square.center.x + math.cos(math.pi/3)*j*radius + radius, square.center.y +
-                           math.sin(math.pi/3) * j * radius + radius)
-        rec = rg.Rectangle(corner1, corner2)
-        rec.attach_to(window)
+        if j < len(colors):
+            hourglass(window, j+1, square.center, radius, colors[j])
+            corner1 = rg.Point(square.center.x - math.cos(math.pi/3)*j*radius - radius, square.center.y -
+                               math.sin(math.pi/3) * j * radius - radius)
+            corner2 = rg.Point(square.center.x + math.cos(math.pi/3)*j*radius + radius, square.center.y +
+                               math.sin(math.pi/3) * j * radius + radius)
+            rec = rg.Rectangle(corner1, corner2)
+            rec.attach_to(window)
+        if j >= len(colors):
+            hourglass(window, j + 1, square.center, radius, colors[j-len(colors)])
+            corner1 = rg.Point(square.center.x - math.cos(math.pi / 3) * j * radius - radius, square.center.y -
+                               math.sin(math.pi / 3) * j * radius - radius)
+            corner2 = rg.Point(square.center.x + math.cos(math.pi / 3) * j * radius + radius, square.center.y +
+                               math.sin(math.pi / 3) * j * radius + radius)
+            rec = rg.Rectangle(corner1, corner2)
+            rec.attach_to(window)
+
     window.render()
 
 
